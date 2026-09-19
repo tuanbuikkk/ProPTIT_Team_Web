@@ -1,4 +1,4 @@
-````markdown
+
 # I. Spring Bean
 
 ## 1.1. Spring Bean và Spring IoC Container
@@ -100,35 +100,16 @@ Trả về **một đối tượng Bean riêng biệt cho mỗi lần sử dụn
 
 ## 1.3. Cách tạo Bean
 
-### Cấu hình dựa trên XML
-
-Là cách truyền thống của Spring.
-
 ### Cấu hình dựa trên Annotation
 
 Là cách phổ biến nhất hiện nay, định nghĩa Bean trên lớp Java bằng các Annotation.
 
-```java
-@Component
-```
 
 `@Component`: Annotation chung cho bất kỳ thành phần nào được Spring quản lý.
 
-```java
-@Service
-```
-
 `@Service`: Dùng cho các lớp **logic nghiệp vụ** (lớp Service).
 
-```java
-@Repository
-```
-
 `@Repository`: Dùng cho các lớp **truy cập dữ liệu** (lớp Repository/DAO).
-
-```java
-@Controller
-```
 
 `@Controller`: Dùng cho các lớp **xử lý yêu cầu web** (lớp Controller).
 
@@ -155,42 +136,20 @@ public class AppConfig {
 
 ## 1.4. Vòng đời Bean
 
-### 1. Instantiation
-
-Spring Container **tạo instance của Bean**.
-
-### 2. Populate Properties
-
-Spring **tiêm các phụ thuộc (DI)**.
-
-### 3. Initialization
-
-Gọi các **callback khởi tạo**.
-
-Đây là nơi bạn có thể thực hiện các công việc thiết lập cần thiết sau khi Bean đã được tạo và các phụ thuộc đã được tiêm.
-
-Ví dụ:
-
-* Mở kết nối
-* Nạp bộ nhớ đệm (cache)
-
-### 4. Ready for Use
-
-Bean đã **sẵn sàng để sử dụng** và nằm trong Container, chờ được sử dụng.
-
-### 5. Destruction
-
-Khi Container đóng lại, Spring gọi các **callback hủy**.
-
-Đây là nơi bạn có thể thực hiện các công việc dọn dẹp.
-
-Ví dụ:
-
-* Đóng kết nối
-* Giải phóng tài nguyên
-
-
 ![put here](img1.png)
+
+### 1. 
+Khi IoC Container tìm thấy một Bean cần quản lý, nó sẽ khởi tạo bằng Constructor
+### 2.
+Spring tiêm phụ thuộc (Inject dependencies) vào Bean và thực hiện các quá trình cài đặt khác vào Bean như setBeanName, setBeanClassLoader, v.v..
+### 3.
+Hàm đánh dấu @PostConstruct được gọi
+Tiền xử lý sau khi @PostConstruct được gọi.
+### 4.
+Bean sẵn sàng để hoạt động
+### 5.
+Nếu IoC Container không quản lý bean nữa hoặc bị shutdown nó sẽ gọi hàm @PreDestroy trong Bean
+Xóa Bean.
 
 
 # II. Spring MVC
@@ -211,17 +170,9 @@ Nó đánh dấu một class làm nhiệm vụ:
 - Điều hướng logic.
 - Trả về giao diện.
 
-> **Lưu ý:** `@Controller` là một dạng chuyên biệt của `@Component`, vì vậy class được đánh dấu `@Controller` có thể được Spring tự động phát hiện và quản lý bởi IoC Container.
-
 ### Thymeleaf
 
-**Thymeleaf** là một **Java Template Engine**.
-
-Nó có nhiệm vụ xử lý và **sinh ra (generate)** các file như:
-
-- HTML
-- XML
-- ...
+Java template engine là công cụ "lắp ráp" dữ liệu động từ Java backend với các file template như HTML để tạo ra giao diện web hoàn chỉnh hiển thị cho người dùng. **Thymeleaf** là một **Java Template Engine** cho phép file HTML hiển thị bình thường ngay cả khi mở trực tiếp bằng trình duyệt.
 
 Các file HTML do Thymeleaf tạo ra là kết quả của việc kết hợp:
 
@@ -234,11 +185,17 @@ Quy tắc xử lý
 ↓
 File HTML hoàn chỉnh
 
-
-
 ````
 
 ![put here](img3.png)
+
+
+
+Model chứa dữ liệu name: "Loda"
+
+file hello.htm có  cú pháp th:text="'Hello, ' + ${name}"
+
+-> Thymeleaf sẽ lấy giá trị "Loda" từ Model đắp vào biến ${name} sau đó biên dịch toàn bộ thành mã HTML
 
 ---
 
@@ -352,7 +309,7 @@ Tên Bean mặc định: "myRepository"
 
 **Meta-annotation** là một annotation được tạo thành từ nhiều annotation khác.
 
-Annotation này thường được đặt tại class chứa hàm `main`.
+Do dùng để đánh dấu main class nhằm khởi động, tự động cấu hình và quét các components cho toàn bộ ứng dụng nên Annotation này thường được đặt tại class chứa hàm `main`.
 
 ```java
 @SpringBootApplication
@@ -369,7 +326,6 @@ public class Application {
 ### 1. @SpringBootConfiguration
 
 Đánh dấu class là **nguồn cung cấp các định nghĩa Bean** cho Spring Container.
-
 Nó cho phép định nghĩa Bean trực tiếp bên trong class ứng dụng.
 
 ---
@@ -377,23 +333,13 @@ Nó cho phép định nghĩa Bean trực tiếp bên trong class ứng dụng.
 ### 2. @EnableAutoConfiguration
 
 Bật cơ chế **tự động cấu hình** của Spring Boot.
-
 Spring Boot sẽ tự động cấu hình các Bean dựa trên những thư viện và dependency có trong **classpath**.
 
 ---
 
 ### 3. @ComponentScan
 
-Bật cơ chế **quét các thành phần của Spring** như:
-
-```text
-@Controller
-@Service
-@Repository
-@Component
-```
-
-Spring sẽ quét trong **package chứa class chính** và các **package con** của nó để tìm các thành phần được đánh dấu bằng các annotation trên.
+Quét các bean và component (@Component, @Service, @Repository, @Controller...) trong package hiện tại và các package con để đưa vào Spring IoC Container quản lý
 
 ---
 

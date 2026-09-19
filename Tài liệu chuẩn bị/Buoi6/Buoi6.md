@@ -1,4 +1,4 @@
-````markdown
+
 # I. Spring Bean
 
 ## 1.1. Spring Bean và Spring IoC Container

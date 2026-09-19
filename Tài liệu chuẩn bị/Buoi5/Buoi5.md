@@ -204,7 +204,7 @@ Mỗi Method trong HTTP được đem ra đánh giá là:
 * Một Request được xem là **Cacheable** khi sau lần gửi thứ nhất của Request, kết quả phản hồi có thể được lưu vào một trong các loại cache trên websites (`localStorage`, `cookies`, …).
 
 
-![Image 2](image2.png)
+![Image 1](image1.png)
 
 # 2. API
 
@@ -222,7 +222,7 @@ Mỗi Method trong HTTP được đem ra đánh giá là:
 
 * Bạn không cố gắng đấu dây trực tiếp thiết bị vào nguồn điện — làm như vậy sẽ thực sự không hiệu quả và nếu bạn không phải là một thợ điện thì việc thực hiện sẽ khó khăn và nguy hiểm.
 
-![Image 1](image1.png)
+![Image 2](image2.png)
 
 ---
 

@@ -283,14 +283,14 @@ docker system df                    # xem dung lượng Docker đang chiếm
 
 **IP (Internet Protocol address)** là địa chỉ định danh một thiết bị trong mạng, giống "số nhà" để tìm đến đúng máy.
 
-| Loại | Ví dụ | 
-|---|---|
-| **IPv4** | `203.0.113.10` | 
-| **IPv6** | `2001:db8::1` | 
-| **Public IP** | `203.0.113.10` |
-| **Private IP** | `192.168.x.x`, `10.x.x.x`, `172.16–31.x.x` | 
-| **Loopback** | `127.0.0.1` (`localhost`) | T
-| **`0.0.0.0`** | 
+| Loại | Ví dụ | Ghi chú |
+|---|---|---|
+| **IPv4** | `203.0.113.10` | 4 số từ 0–255, phổ biến nhất |
+| **IPv6** | `2001:db8::1` | Địa chỉ dài hơn, đang dần phổ biến |
+| **Public IP** | `203.0.113.10` | Truy cập được từ Internet. VPS thường có 1 IP public |
+| **Private IP** | `192.168.x.x`, `10.x.x.x`, `172.16–31.x.x` | Chỉ dùng trong mạng nội bộ (LAN, mạng Docker) |
+| **Loopback** | `127.0.0.1` (`localhost`) | Trỏ về chính máy đang chạy |
+| **`0.0.0.0`** | | Lắng nghe trên **mọi** interface mạng của máy |
 
 ### 4.2. Port
 
